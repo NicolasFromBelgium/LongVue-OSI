@@ -3,7 +3,8 @@ import os
 import sqlite3
 
 # Chemin absolu vers data.db à la racine du projet
-DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data.db'))
+DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data.db"))
+
 
 def initialize_database():
     conn = sqlite3.connect(DB_PATH)
@@ -37,6 +38,7 @@ def initialize_database():
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_status ON osint_data(status);")
     conn.commit()
     conn.close()
+
 
 # Appel auto (ou dans main.py)
 initialize_database()
