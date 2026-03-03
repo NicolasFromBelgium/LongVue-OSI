@@ -1,7 +1,6 @@
 # tests/test_database.py
 import os
 import uuid
-import datetime
 import pytest
 import sqlite3
 
