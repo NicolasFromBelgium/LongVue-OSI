@@ -1,9 +1,9 @@
 [project]
-name = "tdd-template"
+name = "longvue_osi"
 version = "0.1.0"
-description = "Professional TDD Python Project Template"
+description = "OSINT Web Scraping Tool in TDD"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = []  # Empty, or add other real deps like "requests" if needed latern
 
 [build-system]
 requires = ["setuptools>=45", "wheel"]

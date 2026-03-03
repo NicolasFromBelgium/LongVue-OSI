@@ -1,0 +1,8 @@
+LICENSE
+README.md
+pyproject.toml
+src/longvue_osi.egg-info/PKG-INFO
+src/longvue_osi.egg-info/SOURCES.txt
+src/longvue_osi.egg-info/dependency_links.txt
+src/longvue_osi.egg-info/top_level.txt
+tests/test_database.py
