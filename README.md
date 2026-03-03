@@ -1,126 +1,166 @@
-# TDD Python Project Template (by Nicolas Leyssens)
+# LongVue
+## Real-Time Strategic Intelligence & Prediction Engine
 
-**A professional template to start any Python project using Test Driven Development (TDD)**
+**Version**: 0.1 – March 2026  
+**Author**: NicolasFromBelgium  
+**License**: MIT (Open Source)
 
-This template contains everything you need to practice **real TDD** from the very first commit:
+---
 
-- Modern `src/` project structure
+## 🚀 Overview
 
-- pre-commit (black + ruff)
+LongVue is an open-source Python system that transforms raw global information into structured, actionable intelligence.
 
-- Complete GitHub Actions CI (lint + type checking + tests on Python 3.11/3.12)
+It:
 
-- 2 demo tests to force you to follow the Red → Green → Refactor cycle
+- Crawls multiple ethical data sources
+- Structures content into traceable "information capsules"
+- Stores data locally (JSON / CSV / Vector DB)
+- Uses a local LLM (Ollama) for analysis and prediction
+- Generates probabilistic insights over short / mid / long term horizons
 
-## How to Use This Template
+**Goal:** Provide a long-term strategic view of global events with full auditability and local privacy.
 
-1. Click **"Use this template"** → "Create a new repository" on GitHub
+---
 
-2. Clone your new repository
+## 🧠 Problem It Solves
 
-3. `python -m venv venv && source venv/bin/activate` (if Windows : venv\Scripts\activate)
+- Information is fragmented and unstructured
+- Analysis is often subjective and outdated
+- No open-source tool combines crawling + structuring + prediction + local LLM inference at scale
 
-4. `pip install -r requirements-dev.txt`
+LongVue builds a scalable and offline-capable pipeline to fix that.
 
-5. `pre-commit install`
+---
 
-6. `git add . && git commit -m "chore: initial TDD template setup"`
+## 🏗 Architecture
 
-7. **Run the tests**: `pytest` 
+### 1. Data Acquisition (Crawler)
 
-8. Test 1 should pass if installation went fine
+- Sources: Reuters, AP, Bloomberg, FT (configurable via `config.yaml`)
+- Tools: BeautifulSoup + Selenium fallback
+- Ethical crawling:
+  - Respect robots.txt
+  - Delay between requests
+  - Custom user-agent
 
-9. Test 2 should fail, it's NORMAL (it tests if there is a file in src/tdd_template/)
+Features:
+- Extract title, date, content, URL
+- Auto-detect PDFs / reports
+- Basic topic/entity detection before AI processing
 
-10. Do not change anything. Commit and push the template to your github repo
+---
 
-11. Go to your Github repo, check actions, you will see a workflow on failed (because the test 2 failed!)
+### 2. Data Structuring
 
-12. Now go to directory : src/tdd_template (cd tdd_template)
+Each article becomes a structured JSON "capsule":
 
-13. Create a file main.py(nano main.py), write some valid python 
+```json
+{
+  "id": "uuid",
+  "source": "reuters",
+  "url": "https://...",
+  "title": "Title",
+  "publish_date": "2026-03-03",
+  "raw_text": "Full content",
+  "metadata": {
+    "location": ["Paris"],
+    "topics": ["economy"],
+    "impact_local": 7,
+    "impact_global": 4
+  }
+}
 
-14. commit and push again, the new workflow action should be on PASSED (test 2 is now OK)
+Storage:
 
-15. BINGO, you did your first Test Driven Development workflow
+JSON / CSV
 
-The existing 2 Demo CI tests are here : tests/unit/test_demo.py
+ChromaDB (semantic search)
 
-## The 2 Demo Tests (Essential for Understanding TDD)
+3. Analysis & Prediction
 
-1. **`test_project_has_at_least_one_test`** → **Always passes**  
+Local inference via Ollama
 
-   (There are already 2 tests in the project, it will confirm that CI is functional.)
+Models: Llama3, Gemma, etc.
 
-2. **`test_project_has_new_files`** → **Intentionally fails at the beginning**  
+Probabilistic scenario generation
 
-   Clear message:  
+Automatic scenario updates when new events arrive
 
-  
+4. Output
 
-   > Remember the TDD rule: **Write the TEST before the code!**"
+Streamlit / Gradio dashboard
 
- > "Create src/tdd_template/main.py (or any new file) to make this test pass
+REST API
 
-## The TDD Rule
+Data exports
 
-**Red** (write a failing test) → **Green** (write the minimal code to make it pass) → **Refactor**
+🧪 Development
 
+Built with TDD (Test Driven Development):
 
+tests/unit/
 
-## Important config files
+tests/integration/
 
-pyproject.toml : central config (packaging, clack, ruff, mypy)
+CI pipeline:
 
-.pre-commit-config.yaml : will execute black and ruff before any commit
+Lint
 
-.github/workflows/ci.yml : Pipeline Github Actions (CI TDD core)
+Type checking
 
+Automated tests on push / PR
 
+💡 Use Cases
 
-## Useful Commands
+Strategic intelligence
 
-\`\`\`bash
+Macro-economic prediction
 
-(when you launch pytest it will scan and launch files with test_ or _test.py)
+Journalism research
 
-pytest                  # run all tests
+AI research (explainable prediction models)
 
-pre-commit run --all-files
+🗺 Roadmap
 
-pytest --cov=src        # with coverage
+MVP
 
-pytest # run everything (what you usually execute)
+Multi-site crawler
 
-pytest -v # verbose mode (see each test individually)
+Capsule storage
 
-pytest tests/unit/ # run only unit tests (recommended during development)
+Phase 1
 
-pytest --cov=src # run tests with code coverage report
+Ollama integration
 
-pytest -k "demo" # run only tests that contain "demo" in their name
+Prediction engine
 
-\`\`\`
+Phase 2
 
-Run these commands in the windows command line interface (CLI), copy the output of the last command and paste it in your github ssh key manager
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-cat ~/.ssh/id_ed25519.pub
+Dashboard
 
-## On Windows
-Open Git Bash
-cd to working folder (e.g an empty folder TDD_project01 you just created)
-git clone repo
-cd repo
-python -m venv venv
-source venv/Scripts/activate
-pip install -r requirements.txt
-pytest
-git add .
-git commit -m "message"
-git push
+AI agents
 
+Phase 3
 
-This template is open-source (MIT license) 
+Fine-tuning models on historical predictions
 
+🔐 Philosophy
 
+Open Source
+
+Privacy-first (local AI)
+
+Ethical scraping
+
+Anti-bias detection
+
+Fully traceable data pipeline
+
+LongVue is not just a crawler — it's a long-term strategic intelligence engine.
+
+Contributing
+
+Fork → Improve → Submit PR (tests must pass)
+
+Issues tracked on GitHub.
