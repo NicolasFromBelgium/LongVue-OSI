@@ -1,8 +1,10 @@
 # src/longvue_osi/scraper.py
 import scrapy
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy.linkextractors import LinkExtractor
 import uuid
 import sqlite3
-from scrapy.crawler import CrawlerProcess  # Moved to top
+from scrapy.crawler import CrawlerProcess
 from longvue_osi.database import DB_PATH
 
 
@@ -13,17 +15,26 @@ class OsintItem(scrapy.Item):
     http_status = scrapy.Field()
 
 
-class OsintSpider(scrapy.Spider):
+class OsintSpider(CrawlSpider):
     name = "osint_spider"
-    start_urls = ["https://example.com"]
+    start_urls = ["https://quotes.toscrape.com"]
+    rules = (Rule(LinkExtractor(allow=("/page/")), callback="parse_item", follow=True),)
 
-    def parse(self, response):
+    def parse_item(self, response):
         item = OsintItem()
         item["uuid"] = str(uuid.uuid4())
         item["title"] = response.css("title::text").get()
         item["url"] = response.url
         item["http_status"] = response.status
         yield item
+
+        for quote in response.css(".quote"):
+            quote_item = OsintItem()
+            quote_item["uuid"] = str(uuid.uuid4())
+            quote_item["title"] = quote.css(".text::text").get()
+            quote_item["url"] = response.url
+            quote_item["http_status"] = response.status
+            yield quote_item
 
 
 class DbPipeline:
@@ -46,7 +57,7 @@ class DbPipeline:
         self.conn.close()
 
 
-def run_scraper(start_url="https://example.com"):
+def run_scraper(start_url="https://quotes.toscrape.com"):
     process = CrawlerProcess(
         settings={
             "ITEM_PIPELINES": {"longvue_osi.scraper.DbPipeline": 300},
@@ -54,6 +65,8 @@ def run_scraper(start_url="https://example.com"):
                 "data/osint_data.json": {"format": "json"},
                 "data/osint_data.csv": {"format": "csv"},
             },
+            "DEPTH_LIMIT": 2,
+            "CONCURRENT_REQUESTS": 8,
         }
     )
     process.crawl(OsintSpider, start_urls=[start_url])
