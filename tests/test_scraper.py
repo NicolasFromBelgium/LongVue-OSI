@@ -1,10 +1,10 @@
 # tests/test_scraper.py
 import pytest
 import sqlite3
-import uuid
 from scrapy.http import TextResponse, Request
-from longvue_osi.scraper import OsintSpider, OsintItem, DbPipeline
+from longvue_osi.scraper import OsintSpider, DbPipeline
 from longvue_osi.database import DB_PATH
+
 
 @pytest.fixture
 def mock_response():
@@ -15,12 +15,19 @@ def mock_response():
         <body><h1>Test Content</h1></body>
     </html>
     """
-    return TextResponse(url="https://example.com", body=body, encoding='utf-8', request=Request("https://example.com"))
+    return TextResponse(
+        url="https://example.com",
+        body=body,
+        encoding="utf-8",
+        request=Request("https://example.com"),
+    )
+
 
 def test_spider_init():
     spider = OsintSpider()
     assert spider.name == "osint_spider", "Spider name should be 'osint_spider'."
     assert spider.start_urls == ["https://example.com"], "Start URLs should include example.com."
+
 
 def test_spider_parse(mock_response):
     spider = OsintSpider()
@@ -31,6 +38,7 @@ def test_spider_parse(mock_response):
     assert item["title"] == "Test Title", "Parsed title incorrect."
     assert item["url"] == "https://example.com", "URL should match."
     assert item["http_status"] == 200, "HTTP status should be set."
+
 
 def test_spider_inserts_to_db(mock_response):
     # Clear DB for clean test (or use a temp DB in real prod; here simple delete)

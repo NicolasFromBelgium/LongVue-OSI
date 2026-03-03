@@ -18,8 +18,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install scrapy  # Explicit for safety
           pip install -e .
-          pip install -r requirements-dev.txt  # Si tu as des deps de test comme pytest
+          pip install -r requirements-dev.txt
       - name: Run tests with pytest
         run: pytest
       - name: Lint with ruff
@@ -29,8 +30,7 @@ jobs:
       - name: Type check with mypy
         run: mypy .
 
-  # Optionnel : Ajoute une job pour init DB si tes tests en ont besoin
-  db-init:
+  db-init:  # Optional; remove if tests handle init
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,6 +39,8 @@ jobs:
         with:
           python-version: '3.13'
       - name: Install package
-        run: pip install -e .
+        run: |
+          pip install -e .
+          pip install scrapy  # If needed, but with lazy import, not required for init_db
       - name: Initialize DB
-        run: python -m longvue_osi.main  # Ou ton entry point pour init DB
+        run: python -m longvue_osi.main init_db  # Added args
