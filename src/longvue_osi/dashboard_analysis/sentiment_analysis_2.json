@@ -1,0 +1,16 @@
+[
+  {
+    "analysis_id": 2,
+    "bot_profile": "cron_nlp_pipeline_perf",
+    "source": "Reuters + CoinDesk + Cointelegraph + The Block + Crypto.news + CNBC Business + Financial Times + Bloomberg Markets",
+    "headlines_count": 121,
+    "market_context": "crypto_business",
+    "sentiment_score": -0.31,
+    "sentiment_label": "negative",
+    "confidence": 0.95,
+    "keywords": "[\"crypto\", \"war\", \"us\", \"iran\", \"energy\", \"trump\", \"bitcoin\", \"oil\", \"investors\", \"privacy\"]",
+    "raw_data": "[{\"text\": \"Latest Videos\", \"sentiment_score\": 0.9942838549613953, \"label\": \"positive\", \"confidence\": 0.9942838549613953, \"source\": \"CoinDesk\"}, {\"text\": \"Latest Crypto News\", \"sentiment_score\": 0.9652774930000305, \"label\": \"positive\", \"confidence\": 0.9652774930000305, \"source\": \"CoinDesk\"}, {\"text\": \"Press Releases\", \"sentiment_score\": 0.9010748863220215, \"label\": \"positive\", \"confidence\": 0.9010748863220215, \"source\": \"CoinDesk\"}, {\"text\": \"Pipe Network Launches SolanaCDN: A Free, Open-Source Validator Client With Built-In Acceleration for Solana\", \"sentiment_score\": -0.84764564037323, \"label\": \"negative\", \"confidence\": 0.84764564037323, \"source\": \"CoinDesk\"}, {\"text\": \"Hey Anon Announces Launch of \\u201cPandora\\u201d Prediction Market on Ethereum\", \"sentiment_score\": 0.9943171143531799, \"label\": \"positive\", \"confidence\": 0.9943171143531799, \"source\": \"CoinDesk\"}, {\"text\": \"Kraken partners with Magma Devs to leverage Lava Network's technology for global trading operations\", \"sentiment_score\": 0.9936596751213074, \"label\": \"positive\", \"confidence\": 0.9936596751213074, \"source\": \"CoinDesk\"}, {\"text\": \"Newsletters\", \"sentiment_score\": 0.7024378180503845, \"label\": \"positive\", \"confidence\": 0.7024378180503845, \"source\": \"CoinDesk\"}, {\"text\": \"CoinDesk Indices\", \"sentiment_score\": -0.9194210171699524, \"label\": \"negative\", \"confidence\": 0.9194210171699524, \"source\": \"CoinDesk\"}, {\"text\": \"Why bitcoin couldn't hold $70,000 despite its best week of Wall Street news in months\", \"sentiment_score\": -0.9987820982933044, \"label\": \"negative\", \"confidence\": 0.9987820982933044, \"source\": \"CoinDesk\"}, {\"text\": \"Bitcoin could crash by another 30% as four-year cycle gains strength, investment firm says\", \"sentiment_score\": -0.9982988238334656, \"label\": \"negative\", \"confidence\": 0.9982988238334656, \"source\": \"CoinDesk\"}]",
+    "processing_time_ms": 49305,
+    "analysis_timestamp": "2026-03-08T14:18:01"
+  }
+]

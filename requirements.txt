@@ -1,1 +1,10 @@
-scrapy
+beautifulsoup4==4.14.3
+mysql_connector_repackaged==0.3.1
+nltk==3.9.3
+ollama==0.6.1
+pytest==9.0.2
+Requests==2.32.5
+scikit_learn==1.8.0
+scrapy==2.14.1
+selenium==4.41.0
+transformers==5.3.0

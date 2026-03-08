@@ -8,7 +8,6 @@ from scrapy.crawler import CrawlerProcess
 from longvue_osi.database import DB_PATH
 
 
-
 class OsintItem(scrapy.Item):
     uuid = scrapy.Field()
     title = scrapy.Field()
@@ -61,18 +60,17 @@ class DbPipeline:
 def run_scraper(start_url="https://quotes.toscrape.com"):
     process = CrawlerProcess(
         settings={
-        "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-         "ROBOTSTXT_OBEY": True,  # Respect robots.txt
-         "DEFAULT_REQUEST_HEADERS": {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.5",
-},
-
-         "DOWNLOAD_DELAY": 1,  # 3s delay entre requests
-         "RANDOMIZE_DOWNLOAD_DELAY": True,
-         "AUTOTHROTTLE_ENABLED" : True,
-           "AUTOTHROTTLE_START_DELAY" : 1,
-          "AUTOTHROTTLE_MAX_DELAY" : 2,
+            "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "ROBOTSTXT_OBEY": True,  # Respect robots.txt
+            "DEFAULT_REQUEST_HEADERS": {
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.5",
+            },
+            "DOWNLOAD_DELAY": 1,  # 3s delay entre requests
+            "RANDOMIZE_DOWNLOAD_DELAY": True,
+            "AUTOTHROTTLE_ENABLED": True,
+            "AUTOTHROTTLE_START_DELAY": 1,
+            "AUTOTHROTTLE_MAX_DELAY": 2,
             "ITEM_PIPELINES": {"longvue_osi.scraper.DbPipeline": 300},
             "FEEDS": {
                 "data/osint_data.json": {"format": "json"},

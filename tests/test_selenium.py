@@ -7,6 +7,7 @@ from scrapy.http import HtmlResponse
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+
 @pytest.fixture(scope="module")
 def driver():
     options = Options()
@@ -14,6 +15,7 @@ def driver():
     driver = webdriver.Chrome(options=options)
     yield driver
     driver.quit()
+
 
 @pytest.fixture
 def mock_response(driver):
@@ -27,14 +29,14 @@ def mock_response(driver):
         request=Request(url),
     )
 
+
 @pytest.fixture
 def mock_start_response(driver):
     url = "https://quotes.toscrape.com"
     driver.get(url)
     body = driver.page_source.encode("utf-8")
-    return HtmlResponse(
-        url=url, body=body, encoding="utf-8", request=Request(url)
-    )
+    return HtmlResponse(url=url, body=body, encoding="utf-8", request=Request(url))
+
 
 @pytest.fixture
 def mock_next_response(driver):
@@ -48,12 +50,14 @@ def mock_next_response(driver):
         request=Request(url),
     )
 
+
 def test_spider_init():
     spider = OsintSpider()
     assert spider.name == "osint_spider", "Spider name should be 'osint_spider'."
     assert spider.start_urls == [
         "https://quotes.toscrape.com"
     ], "Start URLs should include quotes.toscrape.com."
+
 
 def test_spider_parse(mock_response):
     spider = OsintSpider()
@@ -64,6 +68,7 @@ def test_spider_parse(mock_response):
     assert item["title"] == "Quotes to Scrape", "Parsed title incorrect."
     assert item["url"] == "https://quotes.toscrape.com", "URL should match."
     assert item["http_status"] == 200, "HTTP status should be set."
+
 
 def test_spider_inserts_to_db(mock_response):
     conn = sqlite3.connect(DB_PATH)
@@ -83,6 +88,7 @@ def test_spider_inserts_to_db(mock_response):
     assert new_count == initial_count + 1, "Item should be inserted into DB."
     conn.close()
 
+
 def test_spider_follows_links(mock_start_response, mock_next_response):
     spider = OsintSpider()
     # Test link extraction
@@ -99,6 +105,7 @@ def test_spider_follows_links(mock_start_response, mock_next_response):
     assert items_start[0]["title"] == "Quotes to Scrape", "Start page title incorrect."
     assert len(items_next) == 1, "Next page should yield one item."
     assert items_next[0]["title"] == "Quotes to Scrape", "Next page title incorrect."
+
 
 def test_multi_inserts_to_db(mock_start_response, mock_next_response):
     conn = sqlite3.connect(DB_PATH)

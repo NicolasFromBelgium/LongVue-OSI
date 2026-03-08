@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "analysis_id": 2,
+    "rsi_value": 50.0,
+    "buy_threshold": 31.56,
+    "sell_threshold": 68.44,
+    "sentiment_score": -0.31,
+    "global_impact": 5.0,
+    "adjustment_factor": -1.56,
+    "timestamp": "2026-03-08T14:18:51"
+  }
+]
